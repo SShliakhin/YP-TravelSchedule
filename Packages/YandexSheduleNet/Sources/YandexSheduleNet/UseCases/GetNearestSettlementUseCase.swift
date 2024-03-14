@@ -27,8 +27,8 @@ public final class GetNearestSettlementUseCaseImp: GetNearestSettlementUseCase {
 	}
 
 	public func invoke() {
-		let lat = 50.440046
-		let lng = 40.4882367
+		let lat = 56.13685
+		let lng = 40.43795
 
 		Task {
 			do {
