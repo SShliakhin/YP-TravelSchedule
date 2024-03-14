@@ -42,6 +42,9 @@ let target = Target(
 	],
 	scripts: [
 		swiftLintScript
+	],
+	dependencies: [
+		.package(product: "YandexSheduleNet")
 	]
 )
 
@@ -63,6 +66,9 @@ let targetTest = Target(
 
 let project = Project(
 	name: appName,
+	packages: [
+		.local(path: .relativeToManifest("../Packages/YandexSheduleNet"))
+	],
 	targets: [
 		target,
 		targetTest
