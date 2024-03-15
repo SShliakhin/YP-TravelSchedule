@@ -18,13 +18,7 @@ paths: # содержит список путей и HTTP-операций, со
       summary: Список ближайших станций (максимум 50)
       operationId: getNearestStations # как вызывать метод
       parameters:
-      - name: apikey
-        in: query
-        description: API key
-        required: true
-        schema:
-          type: string
-          example: "1eb31582-941a-3ac8-a61f-041c344495ab"
+      - $ref: "#/components/parameters/ApiKey"
       - name: lat
         in: query
         description: широта
@@ -81,12 +75,7 @@ paths: # содержит список путей и HTTP-операций, со
       summary: Расписание рейсов между станциями
       operationId: getSchedule
       parameters:
-      - name: apikey
-        in: query
-        description: API key
-        required: true
-        schema:
-          type: string
+      - $ref: "#/components/parameters/ApiKey"
       - name: from
         in: query
         description: Cтанция отправления
@@ -180,12 +169,7 @@ paths: # содержит список путей и HTTP-операций, со
       summary: Расписание рейсов по станции
       operationId: getStationSchedule
       parameters:
-      - name: apikey
-        in: query
-        description: API key
-        required: true
-        schema:
-          type: string
+      - $ref: "#/components/parameters/ApiKey"
       - name: station
         in: query
         description: Cтанция отправления
@@ -264,12 +248,7 @@ paths: # содержит список путей и HTTP-операций, со
       summary: Список станций следования
       operationId: getDestinationStations
       parameters:
-      - name: apikey
-        in: query
-        description: API key
-        required: true
-        schema:
-          type: string
+      - $ref: "#/components/parameters/ApiKey"
       - name: uid
         in: query
         description: Идентификатор нитки
@@ -327,12 +306,7 @@ paths: # содержит список путей и HTTP-операций, со
       summary: Ближайший город
       operationId: getNearestSettlement
       parameters:
-      - name: apikey
-        in: query
-        description: API key
-        required: true
-        schema:
-          type: string
+      - $ref: "#/components/parameters/ApiKey"
       - name: lat
         in: query
         description: широта
@@ -377,12 +351,7 @@ paths: # содержит список путей и HTTP-операций, со
       summary: Информация о перевозчике
       operationId: getCarrierInfo
       parameters:
-      - name: apikey
-        in: query
-        description: API key
-        required: true
-        schema:
-          type: string
+      - $ref: "#/components/parameters/ApiKey"
       - name: code
         in: query
         description: код перевозчика
@@ -421,12 +390,7 @@ paths: # содержит список путей и HTTP-операций, со
       summary: Список всех доступных станций
       operationId: getStations
       parameters:
-      - name: apikey
-        in: query
-        description: API key
-        required: true
-        schema:
-          type: string
+      - $ref: "#/components/parameters/ApiKey"
       - name: lang
         in: query
         description: lang
@@ -456,12 +420,7 @@ paths: # содержит список путей и HTTP-операций, со
       summary: Копирайт Яндекс Расписаний
       operationId: getCopyright
       parameters:
-      - name: apikey
-        in: query
-        description: API key
-        required: true
-        schema:
-          type: string
+      - $ref: "#/components/parameters/ApiKey"
       - name: format
         in: query
         description: формат ответа
@@ -476,6 +435,17 @@ paths: # содержит список путей и HTTP-операций, со
               schema:
                 $ref: '#/components/schemas/Copyright'
 components:
+
+  parameters:
+    ApiKey:
+      name: apikey
+      description: API key
+      required: false
+      in: query
+      schema:
+        type: string
+        example: "1eb31582-941a-3ac8-a61f-041c344495ab"
+
   schemas:
     NearestStations:
       type: object

@@ -24,11 +24,9 @@ public protocol GetDestinationStationsUseCase {
 
 public final class GetDestinationStationsUseCaseImp: GetDestinationStationsUseCase {
 	private let client: Client
-	private let apikey: String
 
-	init(client: Client, apikey: String) {
+	init(client: Client) {
 		self.client = client
-		self.apikey = apikey
 	}
 
 	public func invoke() {
@@ -38,7 +36,7 @@ public final class GetDestinationStationsUseCaseImp: GetDestinationStationsUseCa
 			do {
 				let result = try await invoke(uid: threadUID)
 				print("==========")
-				print("Destination stations")
+				print("Destination stations - thread")
 				print(result)
 			}
 			catch {
@@ -57,7 +55,6 @@ public final class GetDestinationStationsUseCaseImp: GetDestinationStationsUseCa
 	) async throws -> DestinationStations {
 		let response = try await client.getDestinationStations(
 			query: .init(
-				apikey: apikey,
 				uid: uid,
 				form: form,
 				to: to,

@@ -15,45 +15,48 @@ public typealias Copyright = Components.Schemas.Copyright
 
 public final class UseCasesProvider {
 	private let client: Client
-	private let apikey: String
+	private let apikey = "ca2a5f01-4337-4580-b78f-5958a122cd28"
 
 	public init() {
 		client = Client(
 			serverURL: try! Servers.server1(),
-			transport: URLSessionTransport()
+			transport: URLSessionTransport(),
+			middlewares: [
+				AuthenticationMiddleware(authorizationHeaderFieldValue: apikey),
+				LoggingMiddleware()
+			]
 		)
-		apikey = "ca2a5f01-4337-4580-b78f-5958a122cd28"
 	}
 
 	public lazy var getNearestStations: GetNearestStationsUseCase = {
-		GetNearestStationsUseCaseImp(client: client, apikey: apikey)
+		GetNearestStationsUseCaseImp(client: client)
 	}()
 
 	public lazy var getSchedule: GetScheduleUseCase = {
-		GetScheduleUseCaseImp(client: client, apikey: apikey)
+		GetScheduleUseCaseImp(client: client)
 	}()
 
 	public lazy var getStationSchedule: GetStationScheduleUseCase = {
-		GetStationScheduleUseCaseImp(client: client, apikey: apikey)
+		GetStationScheduleUseCaseImp(client: client)
 	}()
 
 	public lazy var getDestinationStations: GetDestinationStationsUseCase = {
-		GetDestinationStationsUseCaseImp(client: client, apikey: apikey)
+		GetDestinationStationsUseCaseImp(client: client)
 	}()
 
 	public lazy var getNearestSettlement: GetNearestSettlementUseCase = {
-		GetNearestSettlementUseCaseImp(client: client, apikey: apikey)
+		GetNearestSettlementUseCaseImp(client: client)
 	}()
 
 	public lazy var getCarrierInfo: GetCarrierInfoUseCase = {
-		GetCarrierInfoUseCaseImp(client: client, apikey: apikey)
+		GetCarrierInfoUseCaseImp(client: client)
 	}()
 
 	public lazy var getStations: GetStationsUseCase = {
-		GetStationsUseCaseImp(client: client, apikey: apikey)
+		GetStationsUseCaseImp(client: client)
 	}()
 
 	public lazy var getCopyright: GetCopyrightUseCase = {
-		GetCopyrightUseCaseImp(client: client, apikey: apikey)
+		GetCopyrightUseCaseImp(client: client)
 	}()
 }

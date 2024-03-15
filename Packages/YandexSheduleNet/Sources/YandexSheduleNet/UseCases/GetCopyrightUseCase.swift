@@ -7,7 +7,7 @@
  URL Яндекс Расписаний.
  https://yandex.ru/dev/rasp/doc/ru/reference/query-copyright
 
- https://api.rasp.yandex.net/v3.0/copyright/?apikey={ключ}&format=json
+ https://api.rasp.yandex.net/v3.0/copyright/?apikey=КЛЮЧ&format=json
  */
 
 import OpenAPIRuntime
@@ -19,11 +19,9 @@ public protocol GetCopyrightUseCase {
 
 public final class GetCopyrightUseCaseImp: GetCopyrightUseCase {
 	private let client: Client
-	private let apikey: String
 
-	init(client: Client, apikey: String) {
+	init(client: Client) {
 		self.client = client
-		self.apikey = apikey
 	}
 
 	public func invoke() {
@@ -45,7 +43,6 @@ public final class GetCopyrightUseCaseImp: GetCopyrightUseCase {
 	) async throws -> Copyright {
 		let response = try await client.getCopyright(
 			query: .init(
-				apikey: apikey,
 				format: format
 			)
 		)

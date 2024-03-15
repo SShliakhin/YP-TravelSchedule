@@ -5,7 +5,7 @@
  Идентификатор нитки можно получить в ответах на запросы: Расписание рейсов между станциями, Расписание рейсов по станции.
  https://yandex.ru/dev/rasp/doc/ru/reference/list-stations-route
 
- https://api.rasp.yandex.net/v3.0/stations_list/?apikey={ключ}&lang=ru_RU&format=json
+ https://api.rasp.yandex.net/v3.0/stations_list/?apikey=КЛЮЧ&lang=ru_RU&format=json
  */
 
 import Foundation
@@ -21,11 +21,9 @@ public protocol GetStationsUseCase {
 
 public final class GetStationsUseCaseImp: GetStationsUseCase {
 	private let client: Client
-	private let apikey: String
 
-	init(client: Client, apikey: String) {
+	init(client: Client) {
 		self.client = client
-		self.apikey = apikey
 	}
 
 	public func invoke() {
@@ -34,7 +32,7 @@ public final class GetStationsUseCaseImp: GetStationsUseCase {
 				let result = try await invoke()
 				let resultData = try await Data(collecting: result, upTo: 40 * 1024 * 1024)
 				print("==========")
-				print("Stations")
+				print("Stations - stations_list")
 				print(resultData)
 			}
 			catch {
@@ -49,7 +47,6 @@ public final class GetStationsUseCaseImp: GetStationsUseCase {
 	) async throws -> HTTPBody {
 		let response = try await client.getStations(
 			query: .init(
-				apikey: apikey,
 				lang: lang,
 				format: format
 			)

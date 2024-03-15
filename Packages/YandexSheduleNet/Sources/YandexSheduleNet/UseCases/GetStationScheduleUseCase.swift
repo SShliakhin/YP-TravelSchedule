@@ -2,6 +2,8 @@
  Расписание рейсов по станции
  Запрос позволяет получить список рейсов, отправляющихся от указанной станции и информацию по каждому рейсу.
  https://yandex.ru/dev/rasp/doc/ru/reference/schedule-on-station
+
+ https://api.rasp.yandex.net/v3.0/schedule/?apikey=КЛЮЧ&station=s9600213&transport_types=suburban&direction=на%20Москву
  */
 
 import OpenAPIRuntime
@@ -24,11 +26,9 @@ public protocol GetStationScheduleUseCase {
 
 public final class GetStationScheduleUseCaseImp: GetStationScheduleUseCase {
 	private let client: Client
-	private let apikey: String
 
-	init(client: Client, apikey: String) {
+	init(client: Client) {
 		self.client = client
-		self.apikey = apikey
 	}
 
 	public func invoke() {
@@ -38,7 +38,7 @@ public final class GetStationScheduleUseCaseImp: GetStationScheduleUseCase {
 			do {
 				let result = try await invoke(station: station)
 				print("==========")
-				print("Station schedule")
+				print("Station schedule - schedule")
 				print(result)
 			}
 			catch {
@@ -61,7 +61,6 @@ public final class GetStationScheduleUseCaseImp: GetStationScheduleUseCase {
 	) async throws -> StationSchedule {
 		let response = try await client.getStationSchedule(
 			query: .init(
-				apikey: apikey,
 				station: station,
 				lang: lang,
 				format: format,

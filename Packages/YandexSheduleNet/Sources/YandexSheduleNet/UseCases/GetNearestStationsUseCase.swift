@@ -4,6 +4,10 @@
 
  Точка определяется географическими координатами (широтой и долготой) согласно WGS84
  https://yandex.ru/dev/rasp/doc/ru/reference/query-nearest-station
+
+ https://api.rasp.yandex.net/v3.0/nearest_stations/?apikey=КЛЮЧ&format=json&lat=50.440046&lng=40.4882367&distance=50&lang=ru_RU
+ - в этом примере, до 20 км станций нет - а с 30 выдает ошибку декодирования
+ - подставил координаты из учебника + уменьшил дистанцию до 1 км
  */
 
 import OpenAPIRuntime
@@ -23,11 +27,9 @@ public protocol GetNearestStationsUseCase {
 
 public final class GetNearestStationsUseCaseImp: GetNearestStationsUseCase {
 	private let client: Client
-	private let apikey: String
 
-	init(client: Client, apikey: String) {
+	init(client: Client) {
 		self.client = client
-		self.apikey = apikey
 	}
 
 	public func invoke() {
@@ -59,7 +61,6 @@ public final class GetNearestStationsUseCaseImp: GetNearestStationsUseCase {
 	) async throws -> NearestStations {
 		let response = try await client.getNearestStations(
 			query: .init(
-				apikey: apikey,
 				lat: lat,
 				lng: lng,
 				distance: distance,

@@ -7,7 +7,7 @@
 
  без обязательного указания системы кодирования не работает
  
- https://api.rasp.yandex.net/v3.0/carrier/?format=json&apikey={ключ}&lang=ru_RU&code=TK&system=iata
+ https://api.rasp.yandex.net/v3.0/carrier/?format=json&apikey=КЛЮЧ&lang=ru_RU&code=TK&system=iata
  */
 
 import OpenAPIRuntime
@@ -24,11 +24,9 @@ public protocol GetCarrierInfoUseCase {
 
 public final class GetCarrierInfoUseCaseImp: GetCarrierInfoUseCase {
 	private let client: Client
-	private let apikey: String
 
-	init(client: Client, apikey: String) {
+	init(client: Client) {
 		self.client = client
-		self.apikey = apikey
 	}
 
 	public func invoke() {
@@ -39,7 +37,7 @@ public final class GetCarrierInfoUseCaseImp: GetCarrierInfoUseCase {
 			do {
 				let result = try await invoke(code: code, system: system)
 				print("==========")
-				print("Carrier info")
+				print("Carrier info - carrier")
 				print(result)
 			}
 			catch {
@@ -56,7 +54,6 @@ public final class GetCarrierInfoUseCaseImp: GetCarrierInfoUseCase {
 	) async throws -> Carriers {
 		let response = try await client.getCarrierInfo(
 			query: .init(
-				apikey: apikey,
 				code: code,
 				system: system,
 				lang: lang,
